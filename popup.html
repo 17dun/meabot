@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 15px;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      position: relative;
+      margin: 0;
+    }
+
+
+
+    #disclaimer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 1);
+      z-index: 100;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    #disclaimer-overlay h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    #disclaimer-overlay .disclaimer-content {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+      max-height: 100%;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      padding: 10px;
+      background-color: #f9f9f9;
+      box-sizing: border-box;
+    }
+
+    #disclaimer-buttons {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    #disclaimer-buttons button {
+      width: 45%;
+    }
+
+    #disagree-button {
+      background-color: #f44336;
+    }
+
+    #disagree-button:hover {
+      background-color: #d32f2f;
+    }
+
+    /* --- General Styles --- */
+    .divider {
+      height: 1px;
+      background-color: #e0e0e0;
+      margin: 15px 0;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      width: 100%;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0b86eb;
+    }
+
+    button:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .input-container {
+      margin-top: 15px;
+    }
+
+    .input-container label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+
+
+    /* Other specific component styles from original file */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(20px);
+    }
+
+    .slider.round {
+      border-radius: 20px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .switch-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .switch-container span {
+      margin-left: 10px;
+    }
+
+    .slider-container {
+      margin-bottom: 15px;
+    }
+
+    .slider-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .slider-input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-input {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: #ddd;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .slider-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #2196F3;
+      cursor: pointer;
+    }
+
+    .slider-input::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #2196F3;
+      cursor: pointer;
+      border: none;
+    }
+
+    .slider-value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: bold;
+      color: #2196F3;
+    }
+
+    .message-display {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      display: none;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Disclaimer Overlay -->
+  <div id="disclaimer-overlay" style="display: none;">
+    <h3>免责与使用须知</h3>
+    <div class="disclaimer-content">
+      <p>欢迎使用“meabot社媒神器”！</p>
+      <p>1. 本插件提供的数据和分析结果仅供参考，不构成任何投资或运营建议。</p>
+      <p>2. 请勿将本插件用于任何非法用途，包括但不限于恶意爬虫、数据滥用或侵犯他人隐私。</p>
+      <p>3. 用户通过本插件获取的所有数据，其版权归原平台及创作者所有。任何商业使用行为需自行承担法律风险。</p>
+      <p>4. 插件的分析结果依赖于目标网站的页面结构，若网站更新可能导致插件功能异常或失效。</p>
+      <p>5. 我们致力于保护您的数据安全，但无法对因第三方服务（如API）或不可抗力导致的数据泄露负责。</p>
+      <p>点击“同意”即表示您已阅读、理解并同意以上所有条款。</p>
+    </div>
+    <div id="disclaimer-buttons">
+      <button id="agree-button">同意</button>
+      <button id="disagree-button">不同意</button>
+    </div>
+  </div>
+
+
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <h3>meabot社媒神器</h3>
+    <div id="page-check-container">
+      <!-- The rest of the original content -->
+      <div class="slider-container">
+        <label for="threshold">高赞阈值权重 (<span id="threshold-value">50</span>)</label>
+        <div class="slider-input-container">
+          <input type="range" id="threshold" class="slider-input" min="0" max="100" step="1" value="50">
+          <span class="slider-value" id="threshold-value-display">50</span>
+        </div>
+      </div>
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="autoAnalyze">
+          <span class="slider round"></span>
+        </label>
+        <span>自动分析（下次进入页面自动分析）</span>
+      </div>
+      <div class="divider"></div>
+      <button id="analyze" style="margin-bottom: 5px;">立即分析</button>
+      <div id="analyze-message" class="message-display"></div>
+    </div>
+    <script src="config.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>

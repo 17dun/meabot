@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "meabot开源版插件",
+  "version": "0.0.1",
+  "description": "一键拆解自媒体账号质量，支持小红书和抖音，进行综合评分，账号风格匹配，近期作品趋势，高粉低赞账号挖掘，互动率，内容稳定性，受欢迎程度等，自动挖掘账号中近期高赞作品",
+  "permissions": [
+    "scripting",
+    "storage",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://*.xiaohongshu.com/*",
+    "https://*.douyin.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.xiaohongshu.com/user/profile/*",
+        "*://www.douyin.com/user/*"
+      ],
+      "js": [
+        "config.js",
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
