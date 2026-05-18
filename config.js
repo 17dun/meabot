@@ -1,11 +1,16 @@
-// Export for use in other scripts
+const BACKEND_CONFIG = {
+  apiEndpoint: '',
+  apiKey: '',
+  timeout: 30000,
+  retryAttempts: 3
+};
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = BACKEND_CONFIG;
 } else if (typeof window !== 'undefined') {
   window.BACKEND_CONFIG = BACKEND_CONFIG;
 }
 
-// 确保在Chrome扩展环境中全局可用
 if (typeof globalThis !== 'undefined') {
   globalThis.BACKEND_CONFIG = BACKEND_CONFIG;
 }
