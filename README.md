@@ -124,7 +124,8 @@ meabot/
 
 - 问题反馈: [GitHub Issues](https://github.com/your-repo/meabot/issues)
 - 功能建议: [GitHub Issues](https://github.com/your-repo/meabot/issues)
-- 欢迎微信技术交流: <img src="weixin.png" width="150" alt="微信二维码">
-
+- 欢迎入群技术交流:
+  - 微信: <img src="weixinqun.png" width="250" alt="微信二维码">
+  - 技术交流微：Meabot_com
 ---
 
